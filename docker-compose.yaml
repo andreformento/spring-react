@@ -27,6 +27,9 @@ services:
   react-social:
     build: react-social/
     image: "andreformento/react-social"
+    volumes:
+      - ./spring-react/react-social/public:/usr/src/app/public:ro
+      - ./spring-react/react-social/src:/usr/src/app/src:ro
     networks:
       - backend
     depends_on:
