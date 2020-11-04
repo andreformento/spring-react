@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  database:
+    image: "mysql:5.6"
+    networks:
+      - backend
+    environment:
+      - MYSQL_DATABASE=spring_social
+      - MYSQL_ROOT_PASSWORD=pass
+    ports:
+      - "3306:3306"
+
+  spring-social:
+    build: spring-social/
+    image: "andreformento/spring-social"
+    volumes:
+      - ./spring-social/src/main/resources/application.yml:/app/config/application.yml
+    networks:
+      - backend
+    environment:
+      - DATABASE_HOST=database
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+
+  react-social:
+    build: react-social/
+    image: "andreformento/react-social"
+    networks:
+      - backend
+    depends_on:
+      - spring-social
+    ports:
+      - "3000:3000"
+
+networks:
+  backend:
