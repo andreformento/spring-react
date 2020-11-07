@@ -22,3 +22,8 @@ Open http://localhost:3000
 ## References
 
 - https://github.com/callicoder/spring-boot-react-oauth2-social-login-demo
+- https://material-ui.com/api/button/
+- https://material-ui.com/components/snackbars/#notistack
+- https://www.npmjs.com/package/notistack
+- https://codesandbox.io/s/yfet4?file=/demo.js:74-132
+

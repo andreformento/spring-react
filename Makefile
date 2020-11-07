@@ -12,4 +12,13 @@ status: run
 	watch -n1 "docker ps"
 
 open-node:
-	docker run -v $$(pwd)/react-social:/temp-app -w="/temp-app" -it --rm --entrypoint=bash node:14.7.0
+	docker run -it --rm \
+			   -v node_modules:/temp-app/node_modules \
+			   -v $$(pwd)/react-social/package.json:/temp-app/package.json \
+	           -v $$(pwd)/react-social/package-lock.json:/temp-app/package-lock.json \
+	           -v $$(pwd)/react-social/yarn.lock:/temp-app/yarn.lock \
+	           -v $$(pwd)/react-social/src:/temp-app/src \
+	           -v $$(pwd)/react-social/public:/temp-app/public \
+	           -w="/temp-app" \
+			   --entrypoint=bash \
+			   node:14.7.0

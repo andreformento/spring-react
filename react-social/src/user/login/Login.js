@@ -5,7 +5,6 @@ import { login } from '../../util/APIUtils';
 import { Link, Redirect } from 'react-router-dom'
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
-import Alert from 'react-s-alert';
 
 class Login extends Component {
     componentDidMount() {
@@ -13,9 +12,10 @@ class Login extends Component {
         // Here we display the error and then remove the error query parameter from the location.
         if(this.props.location.state && this.props.location.state.error) {
             setTimeout(() => {
-                Alert.error(this.props.location.state.error, {
-                    timeout: 5000
-                });
+                // Alert.error(this.props.location.state.error, {
+                //     timeout: 5000
+                // });
+                console.log('Alert.error' + this.props.location.state.error);
                 this.props.history.replace({
                     pathname: this.props.location.pathname,
                     state: {}
@@ -49,9 +49,9 @@ class SocialLogin extends Component {
         return (
             <div className="social-login">
                 <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
-                    <img src={googleLogo} alt="Google" /> Log in with Google</a>
+                    <img src={googleLogo} alt="Google" /> Google login</a>
                 <a className="btn btn-block social-btn facebook" href={FACEBOOK_AUTH_URL}>
-                    <img src={fbLogo} alt="Facebook" /> Log in with Facebook</a>
+                    <img src={fbLogo} alt="Facebook" /> Facebook login</a>
             </div>
         );
     }
