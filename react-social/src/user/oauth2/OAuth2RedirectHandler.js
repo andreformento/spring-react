@@ -11,7 +11,7 @@ class OAuth2RedirectHandler extends Component {
         return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    render() {        
+    render() {
         const token = this.getUrlParameter('token');
         const error = this.getUrlParameter('error');
 
@@ -20,15 +20,15 @@ class OAuth2RedirectHandler extends Component {
             return <Redirect to={{
                 pathname: "/profile",
                 state: { from: this.props.location }
-            }}/>; 
+            }}/>;
         } else {
             return <Redirect to={{
                 pathname: "/login",
-                state: { 
+                state: {
                     from: this.props.location,
-                    error: error 
+                    error: error
                 }
-            }}/>; 
+            }}/>;
         }
     }
 }

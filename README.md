@@ -23,11 +23,10 @@
 *Also, make sure that the above mentioned scopes are added in the OAuth2 provider console.*	For example, scope `email` and `profile` should be added in your Google project's OAuth2 consent screen.
 
 
-## Run with docker
+## Commands
 
-```bash
-docker-compose up --build -d
-```
+- run all `make run`
+- show services `make status`
 
 Open http://localhost:3000
 
