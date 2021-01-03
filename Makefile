@@ -1,5 +1,11 @@
+setup:
+	echo "GOOGLE_CLIENT_ID=$(GOOGLE_CLIENT_ID)" > .env
+	echo "GOOGLE_CLIENT_SECRET=$(GOOGLE_CLIENT_SECRET)" >> .env
+	echo "FACEBOOK_CLIENT_ID=$(FACEBOOK_CLIENT_ID)" >> .env
+	echo "FACEBOOK_CLIENT_SECRET=$(FACEBOOK_CLIENT_SECRET)" >> .env
+
 run:
-	@test -f spring-social/src/main/resources/application.yml || (echo "Configure application.yml" && exit 1)
+	@test -f .env || (echo "execute 'make setup GOOGLE_CLIENT_ID=abc GOOGLE_CLIENT_SECRET=def FACEBOOK_CLIENT_ID=a FACEBOOK_CLIENT_SECRET=b'" && exit 1)
 	docker-compose up --build -d
 
 status: run

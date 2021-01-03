@@ -2,20 +2,9 @@
 
 ## Specify OAuth2 Provider ClientId's and ClientSecrets
 
-- [configurations](spring-social/src/main/resources/application-docker.yml)
-- copy template: `cp spring-social/src/main/resources/application{-docker,}.yml`
-
-```yml
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId: <GOOGLE_CLIENT_ID>
-            clientSecret: <GOOGLE_CLIENT_SECRET>
-          facebook:
-            clientId: <FACEBOOK_CLIENT_ID>
-            clientSecret: <FACEBOOK_CLIENT_SECRET>
+Configure your credentials
+```shell
+make setup GOOGLE_CLIENT_ID=abc GOOGLE_CLIENT_SECRET=def FACEBOOK_CLIENT_ID=a FACEBOOK_CLIENT_SECRET=b
 ```
 
 *Please make sure that `http://localhost:8080/oauth2/callback/<provider>`* is added as an authorized redirect uri in the OAuth2 provider. For example, In your [Google API console](https://console.developers.google.com/projectselector/apis/credentials?pli=1), make sure that `http://localhost:8080/oauth2/callback/google` is added in the **Authorized redirect URIs**

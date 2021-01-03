@@ -17,15 +17,15 @@ spring:
       client:
         registration:
           google:
-            clientId: GOOGLE_CLIENT_ID
-            clientSecret: GOOGLE_CLIENT_SECRET
+            clientId: ${GOOGLE_CLIENT_ID}
+            clientSecret: ${GOOGLE_CLIENT_SECRET}
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
           facebook:
-            clientId: FACEBOOK_CLIENT_ID
-            clientSecret: FACEBOOK_CLIENT_SECRET
+            clientId: ${FACEBOOK_CLIENT_ID}
+            clientSecret: ${FACEBOOK_CLIENT_SECRET}
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - email
@@ -37,8 +37,8 @@ spring:
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
 app:
   auth:
-    tokenSecret: 666DO9292330DD5842909851AC1BDGTR
-    tokenExpirationMsec: 864000000
+    tokenSecret: ${APP_AUTH_TOKENSECRET}
+    tokenExpirationMsec: ${APP_AUTH_TOKENEXPIRATIONMSEC}
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
     # we'll be generating an auth token for the user and sending the token to the
@@ -46,5 +46,5 @@ app:
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
-      - myandroidapp://oauth2/redirect
-      - myiosapp://oauth2/redirect
+      # - myandroidapp://oauth2/redirect
+      # - myiosapp://oauth2/redirect
