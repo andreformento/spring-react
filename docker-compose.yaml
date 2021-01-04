@@ -18,7 +18,9 @@ services:
     networks:
       - backend
     environment:
-      - DATABASE_HOST=database
+      - DATABASE_URL=jdbc:mysql://database:3306/spring_social?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=pass
       - APP_AUTH_TOKENSECRET=666DO9292330DD5842909851AC1BDGTR
       - APP_AUTH_TOKENEXPIRATIONMSEC=864000000
     env_file: .env
