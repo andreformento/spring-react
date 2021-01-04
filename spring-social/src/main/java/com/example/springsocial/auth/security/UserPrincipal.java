@@ -12,35 +12,41 @@ import java.util.List;
 import java.util.Map;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private Long id;
-    private String email;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
-    private Map<String, Object> attributes;
+    private final Long id;
+    private final String name;
+    private final String email;
+    private final String password;
+    private final String imageUrl;
+    private final Collection<? extends GrantedAuthority> authorities;
+    private final Map<String, Object> attributes;
 
-    public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String name, String email, String password, String imageUrl, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes) {
         this.id = id;
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.imageUrl = imageUrl;
         this.authorities = authorities;
+        this.attributes = attributes;
     }
 
-    public static UserPrincipal create(User user) {
+    public static UserPrincipal create(User user, Map<String, Object> attributes) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new UserPrincipal(
                 user.getId(),
+                user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                user.getImageUrl(),
+                authorities,
+                attributes
         );
     }
 
-    public static UserPrincipal create(User user, Map<String, Object> attributes) {
-        UserPrincipal userPrincipal = UserPrincipal.create(user);
-        userPrincipal.setAttributes(attributes);
-        return userPrincipal;
+    public static UserPrincipal create(User user) {
+        return UserPrincipal.create(user, Collections.emptyMap());
     }
 
     public Long getId() {
@@ -59,6 +65,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     @Override
@@ -91,12 +101,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return attributes;
     }
 
-    public void setAttributes(Map<String, Object> attributes) {
-        this.attributes = attributes;
-    }
-
     @Override
     public String getName() {
-        return String.valueOf(id);
+        return this.name;
     }
 }

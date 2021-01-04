@@ -1,21 +1,18 @@
 package com.example.springsocial.auth;
 
-import com.example.springsocial.auth.rest.AuthProvider;
-import com.example.springsocial.user.User;
+import com.example.springsocial.auth.security.UserPrincipal;
 
 public final class LoggedUser {
     private final Long id;
     private final String name;
     private final String email;
     private final String imageUrl;
-    private final AuthProvider provider;
 
-    public LoggedUser(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.imageUrl = user.getImageUrl();
-        this.provider = user.getProvider();
+    public LoggedUser(UserPrincipal userPrincipal) {
+        this.id = userPrincipal.getId();
+        this.name = userPrincipal.getName();
+        this.email = userPrincipal.getEmail();
+        this.imageUrl = userPrincipal.getImageUrl();
     }
 
     public Long getId() {
@@ -34,7 +31,4 @@ public final class LoggedUser {
         return imageUrl;
     }
 
-    public AuthProvider getProvider() {
-        return provider;
-    }
 }
