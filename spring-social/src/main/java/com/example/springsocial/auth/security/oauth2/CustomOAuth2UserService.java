@@ -1,12 +1,11 @@
 package com.example.springsocial.auth.security.oauth2;
 
-import com.example.springsocial.auth.rest.AuthProvider;
+import com.example.springsocial.auth.AuthProvider;
 import com.example.springsocial.user.User;
 import com.example.springsocial.user.UserRepository;
 import com.example.springsocial.auth.security.UserPrincipal;
 import com.example.springsocial.auth.security.oauth2.user.OAuth2UserInfo;
 import com.example.springsocial.auth.security.oauth2.user.OAuth2UserInfoFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -21,8 +20,11 @@ import java.util.Optional;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CustomOAuth2UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {

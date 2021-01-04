@@ -1,6 +1,6 @@
 package com.example.springsocial.auth.rest;
 
-public class AuthResponse {
+class AuthResponse {
     private String accessToken;
     private String tokenType = "Bearer";
 

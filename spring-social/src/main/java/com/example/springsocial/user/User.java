@@ -1,5 +1,5 @@
 package com.example.springsocial.user;
-import com.example.springsocial.auth.rest.AuthProvider;
+import com.example.springsocial.auth.AuthProvider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

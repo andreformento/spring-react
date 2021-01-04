@@ -13,7 +13,7 @@ public class TokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
-    private AppSecurityProperties appSecurityProperties;
+    private final AppSecurityProperties appSecurityProperties;
 
     public TokenProvider(AppSecurityProperties appSecurityProperties) {
         this.appSecurityProperties = appSecurityProperties;

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * Created by rajeevkumarsingh on 02/08/17.
  */
-public class LoginRequest {
+class LoginRequest {
     @NotBlank
     @Email
     private String email;
