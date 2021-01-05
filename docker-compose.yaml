@@ -21,7 +21,6 @@ services:
     # volumes:
     #   - ./spring-social/src/main/resources/application.yml:/app/config/application.yml
     healthcheck:
-      # test: "${DOCKER_HEALTHCHECK_TEST:-curl localhost:8080/app/status}"
       test: curl --fail -s http://localhost:8080/actuator/health || exit 1
       interval: 2s
       timeout: 1s
