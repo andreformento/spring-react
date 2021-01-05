@@ -8,7 +8,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn package
 
-FROM openjdk:15-jdk-alpine
+FROM openjdk:15-jdk
 
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar

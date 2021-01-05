@@ -9,12 +9,24 @@ services:
       - MYSQL_ROOT_PASSWORD=pass
     ports:
       - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 1s
+      interval: 2s
+      retries: 15
 
   spring-social:
     build: spring-social/
     image: "andreformento/spring-social"
     # volumes:
     #   - ./spring-social/src/main/resources/application.yml:/app/config/application.yml
+    healthcheck:
+      # test: "${DOCKER_HEALTHCHECK_TEST:-curl localhost:8080/app/status}"
+      test: curl --fail -s http://localhost:8080/actuator/health || exit 1
+      interval: 2s
+      timeout: 1s
+      start_period: 3s
+      retries: 20
     networks:
       - backend
     environment:
@@ -25,7 +37,8 @@ services:
       - APP_AUTH_TOKENEXPIRATIONMSEC=864000000
     env_file: .env
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     ports:
       - "8080:8080"
 
@@ -35,10 +48,13 @@ services:
     volumes:
       - ./react-social/public:/usr/src/app/public:ro
       - ./react-social/src:/usr/src/app/src:ro
+    depends_on:
+      database:
+        condition: service_healthy
+      spring-social:
+        condition: service_healthy
     networks:
       - backend
-    depends_on:
-      - spring-social
     ports:
       - "3000:3000"
 
