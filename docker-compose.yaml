@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   database:
-    image: mysql:5.6
+    image: mysql:5.7
     container_name: database
     networks:
       - backend
@@ -16,12 +16,23 @@ services:
       interval: 2s
       retries: 15
 
+  schema:
+    image: flyway/flyway:7.4.0
+    container_name: schema
+    volumes:
+      - ./migration/conf:/flyway/conf:ro
+      - ./migration/sql:/flyway/sql:ro
+    command: migrate
+    networks:
+      - backend
+    depends_on:
+      database:
+        condition: service_healthy
+
   spring-social:
     build: spring-social/
     image: andreformento/spring-social:dev
     container_name: spring-social
-    # volumes:
-    #   - ./spring-social/src/main/resources/application.yml:/app/config/application.yml
     healthcheck:
       test: curl --fail -s http://localhost:8080/actuator/health || exit 1
       interval: 2s

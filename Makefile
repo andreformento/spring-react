@@ -8,6 +8,11 @@ run:
 	@test -f .env || (echo "execute 'make setup GOOGLE_CLIENT_ID=abc GOOGLE_CLIENT_SECRET=def FACEBOOK_CLIENT_ID=a FACEBOOK_CLIENT_SECRET=b'" && exit 1)
 	docker-compose up --build -d
 
+rm:
+	docker-compose rm -s -f -v
+
+recreate: rm run
+
 status: run
 	watch -n1 "docker ps"
 
