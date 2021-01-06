@@ -1,6 +1,8 @@
 package com.example.springsocial.auth.security;
 
-import com.example.springsocial.user.User;
+import com.example.springsocial.user.UserEntity;
+import com.example.springsocial.workspace.Workspace;
+import com.example.springsocial.workspace.WorkspaceEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +18,9 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     private final String imageUrl;
     private final Collection<? extends GrantedAuthority> authorities;
     private final Map<String, Object> attributes;
+    private final Optional<Workspace> defaultWorkspace;
 
-    public UserPrincipal(UUID id, String name, String email, String password, String imageUrl, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes) {
+    public UserPrincipal(UUID id, String name, String email, String password, String imageUrl, Collection<? extends GrantedAuthority> authorities, Map<String, Object> attributes, Optional<Workspace> defaultWorkspace) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -25,9 +28,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         this.imageUrl = imageUrl;
         this.authorities = authorities;
         this.attributes = attributes;
+        this.defaultWorkspace = defaultWorkspace;
     }
 
-    public static UserPrincipal create(User user, Map<String, Object> attributes) {
+    public static UserPrincipal create(UserEntity user, Map<String, Object> attributes) {
         List<GrantedAuthority> authorities = Collections.
                 singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 
@@ -38,16 +42,21 @@ public class UserPrincipal implements OAuth2User, UserDetails {
                 user.getPassword(),
                 user.getImageUrl(),
                 authorities,
-                attributes
+                attributes,
+                user.getDefaultWorkspaceEntity().map(WorkspaceEntity::toModel)
         );
     }
 
-    public static UserPrincipal create(User user) {
+    public static UserPrincipal create(UserEntity user) {
         return UserPrincipal.create(user, Collections.emptyMap());
     }
 
     public UUID getId() {
         return id;
+    }
+
+    public Optional<Workspace> getDefaultWorkspace() {
+        return defaultWorkspace;
     }
 
     public String getEmail() {

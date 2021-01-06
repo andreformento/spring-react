@@ -29,7 +29,18 @@ export function getCurrentUser() {
     }
 
     return request({
-        url: API_BASE_URL + "/user/me",
+        url: API_BASE_URL + "/users/me",
+        method: 'GET'
+    });
+}
+
+export function getWorkspaces() {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+
+    return request({
+        url: API_BASE_URL + "/v1/workspaces",
         method: 'GET'
     });
 }

@@ -1,6 +1,7 @@
 package com.example.springsocial.auth.security.oauth2;
 
 import org.springframework.util.SerializationUtils;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

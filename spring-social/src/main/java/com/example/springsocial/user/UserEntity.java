@@ -1,18 +1,22 @@
 package com.example.springsocial.user;
 import com.example.springsocial.auth.AuthProvider;
+import com.example.springsocial.workspace.Workspace;
+import com.example.springsocial.workspace.WorkspaceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -39,6 +43,13 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
+
+    @OneToMany(mappedBy = "owner")
+    private List<WorkspaceEntity> workspaces;
+
+    @ManyToOne
+    @JoinColumn(name="default_workspace_id")
+    private WorkspaceEntity defaultWorkspace;
 
     public UUID getId() {
         return id;
@@ -102,5 +113,21 @@ public class User {
 
     public void setProviderId(String providerId) {
         this.providerId = providerId;
+    }
+
+    public List<WorkspaceEntity> getWorkspaces() {
+        return workspaces;
+    }
+
+    public void setWorkspaces(List<WorkspaceEntity> workspaces) {
+        this.workspaces = workspaces;
+    }
+
+    public Optional<WorkspaceEntity> getDefaultWorkspaceEntity() {
+        return Optional.ofNullable(defaultWorkspace);
+    }
+
+    public void setDefaultWorkspace(WorkspaceEntity defaultWorkspace) {
+        this.defaultWorkspace = defaultWorkspace;
     }
 }
