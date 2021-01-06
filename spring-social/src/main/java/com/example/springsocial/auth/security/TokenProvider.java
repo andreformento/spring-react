@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class TokenProvider {
@@ -33,13 +34,13 @@ public class TokenProvider {
                 .compact();
     }
 
-    public Long getUserIdFromToken(String token) {
+    public UUID getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(appSecurityProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody();
 
-        return Long.parseLong(claims.getSubject());
+        return UUID.fromString(claims.getSubject());
     }
 
     public boolean validateToken(String authToken) {
