@@ -2,8 +2,10 @@ package com.example.springsocial.auth;
 
 import com.example.springsocial.auth.security.UserPrincipal;
 
+import java.util.UUID;
+
 public final class LoggedUser {
-    private final Long id;
+    private final UUID id;
     private final String name;
     private final String email;
     private final String imageUrl;
@@ -15,7 +17,7 @@ public final class LoggedUser {
         this.imageUrl = userPrincipal.getImageUrl();
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 

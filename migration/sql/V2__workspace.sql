@@ -1,4 +1,4 @@
 CREATE TABLE workspace (
-  id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id binary(16) NOT NULL PRIMARY KEY,
   name VARCHAR(30) NOT NULL
-)
+);

@@ -47,6 +47,9 @@ services:
       - DATABASE_PASSWORD=pass
       - APP_AUTH_TOKENSECRET=666DO9292330DD5842909851AC1BDGTR
       - APP_AUTH_TOKENEXPIRATIONMSEC=864000000
+      - JPA_SHOW_SQL=true
+      # validate, update
+      - JPA_DDL_GENERATION=validate
     env_file: .env
     depends_on:
       database:
