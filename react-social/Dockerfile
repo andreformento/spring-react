@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:experimental
+
 FROM node:14.7.0
 
 # Create app directory
@@ -9,7 +11,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY yarn.lock ./
 
-RUN npm install
+RUN --mount=type=cache,target=node_modules npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
