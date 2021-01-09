@@ -1,12 +1,13 @@
+# syntax = docker/dockerfile:experimental
+
 FROM maven:3.6.3-openjdk-15 AS builder
 
 WORKDIR /app
 
 COPY pom.xml ./
-RUN mvn dependency:go-offline
 
 COPY src ./src
-RUN mvn package
+RUN --mount=type=cache,target=/root/.m2 mvn package
 
 FROM openjdk:15-jdk
 
