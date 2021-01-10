@@ -1,17 +1,19 @@
 package com.example.springsocial.auth;
 
 import com.example.springsocial.auth.security.UserPrincipal;
+import com.example.springsocial.user.User;
 import com.example.springsocial.workspace.Workspace;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public final class LoggedUser {
+public class LoggedUser {
     private final UUID id;
     private final String name;
     private final String email;
     private final String imageUrl;
     private final Optional<Workspace> defaultWorkspace;
+    private final User model;
 
     public LoggedUser(UserPrincipal userPrincipal) {
         this.id = userPrincipal.getId();
@@ -19,6 +21,7 @@ public final class LoggedUser {
         this.email = userPrincipal.getEmail();
         this.imageUrl = userPrincipal.getImageUrl();
         this.defaultWorkspace = userPrincipal.getDefaultWorkspace();
+        this.model = new User(id, name, defaultWorkspace);
     }
 
     public UUID getId() {
@@ -40,4 +43,9 @@ public final class LoggedUser {
     public Optional<Workspace> getDefaultWorkspace() {
         return defaultWorkspace;
     }
+
+    public User toModel() {
+        return model;
+    }
+
 }

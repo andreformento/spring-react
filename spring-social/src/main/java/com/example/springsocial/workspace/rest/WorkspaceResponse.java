@@ -10,7 +10,7 @@ class WorkspaceResponse {
     private final Workspace workspace;
     private final Boolean isDefault;
 
-    private WorkspaceResponse(Workspace workspace, Boolean isDefault) {
+    WorkspaceResponse(Workspace workspace, Boolean isDefault) {
         this.workspace = workspace;
         this.isDefault = isDefault;
     }

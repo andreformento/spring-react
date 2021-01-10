@@ -29,7 +29,7 @@ export function getCurrentUser() {
     }
 
     return request({
-        url: API_BASE_URL + "/users/me",
+        url: API_BASE_URL + "/v1/users/me",
         method: 'GET'
     });
 }
@@ -45,9 +45,21 @@ export function getWorkspaces() {
     });
 }
 
+export function createWorkspace(newWorkspace) {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+
+    return request({
+        url: API_BASE_URL + "/v1/workspaces",
+        method: 'POST',
+        body: JSON.stringify(newWorkspace)
+    });
+}
+
 export function login(loginRequest) {
     return request({
-        url: API_BASE_URL + "/auth/login",
+        url: API_BASE_URL + "/v1/auth/login",
         method: 'POST',
         body: JSON.stringify(loginRequest)
     });

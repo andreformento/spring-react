@@ -50,12 +50,14 @@ services:
       - JPA_SHOW_SQL=true
       # validate, update
       - JPA_DDL_GENERATION=validate
+      - JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8877,server=y,suspend=n
     env_file: .env
     depends_on:
       database:
         condition: service_healthy
     ports:
       - "8080:8080"
+      - "8877:8877"
 
   react-social:
     build: react-social/
