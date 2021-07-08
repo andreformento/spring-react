@@ -1,7 +1,7 @@
 package com.example.springsocial.auth.security.oauth2.user;
 
-import com.example.springsocial.auth.security.oauth2.OAuth2AuthenticationProcessingException;
 import com.example.springsocial.auth.AuthProvider;
+import com.example.springsocial.auth.security.oauth2.OAuth2AuthenticationProcessingException;
 
 import java.util.Map;
 

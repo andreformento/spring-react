@@ -7,6 +7,7 @@ import AppHeader from '../common/AppHeader';
 import Home from '../home/Home';
 import Login from '../user/login/Login';
 import Profile from '../user/profile/Profile';
+import Workspaces from '../workspaces/Workspaces';
 import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
@@ -37,17 +38,17 @@ class App extends Component {
     });
 
     getCurrentUser()
-    .then(response => {
-      this.setState({
-        currentUser: response,
-        authenticated: true,
-        loading: false
+      .then(response => {
+        this.setState({
+          currentUser: response,
+          authenticated: true,
+          loading: false
+        });
+      }).catch(error => {
+        this.setState({
+          loading: false
+        });
       });
-    }).catch(error => {
-      this.setState({
-        loading: false
-      });
-    });
   }
 
   handleLogout() {
@@ -64,7 +65,7 @@ class App extends Component {
   }
 
   render() {
-    if(this.state.loading) {
+    if (this.state.loading) {
       return <LoadingIndicator />
     }
 
@@ -76,14 +77,15 @@ class App extends Component {
         <div className="app-body">
           <Switch>
             <Route exact path="/" component={Home}></Route>
+            <PrivateRoute path="/workspaces" authenticated={this.state.authenticated} currentUser={this.state.currentUser} component={Workspaces}></PrivateRoute>
             <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser} component={Profile}></PrivateRoute>
             <Route path="/login" render={(props) => <Login authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>
             <Route component={NotFound}></Route>
           </Switch>
         </div>
-        <Alert stack={{limit: 3}}
-          timeout = {3000}
+        <Alert stack={{ limit: 3 }}
+          timeout={3000}
           position='top-right' effect='slide' offset={65} />
       </div>
     );
